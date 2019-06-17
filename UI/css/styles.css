@@ -84,6 +84,11 @@ header h1 {
     text-transform: uppercase;
 }
 
+header h1 > a {
+    color: #ff8f00;
+    text-decoration: none;
+}
+
 #main-navigation {
     margin-left: auto;
     display: flex;
