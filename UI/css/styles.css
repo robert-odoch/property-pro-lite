@@ -1,14 +1,19 @@
 /* Paddings */
 .pa-1 {
-    padding: 1em;
+    padding: .5em;
 }
 
 .pa-2 {
-    padding: 1.5em;
+    padding: 1em;
 }
 
 .pa-3 {
-    padding: 2em;
+    padding: 1.5em;
+}
+
+/* Margins */
+.mb-1 {
+    margin-bottom: 1em;
 }
 
 /* Text */
@@ -57,6 +62,12 @@ form {
     margin-bottom: 1em;
 }
 
+.form-row {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr;
+}
+
 label {
     display: block;
     font-weight: bold;
@@ -73,6 +84,16 @@ input[type="password"] {
     width: 100%;
 }
 
+.form-inline {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+}
+
+.form-inline label {
+    display: inline-block;
+}
+
 /* Buttons */
 .btn {
     padding: .5em 1em;
@@ -83,6 +104,17 @@ input[type="password"] {
 }
 
 /* Core styles */
+:root {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
 html {
     height: 100%;
 }
@@ -131,9 +163,12 @@ a {
     text-decoration: none;
 }
 
+.container {
+    margin: 0 .5em;
+}
+
 .properties {
     display: grid;
-    padding: 0 .5em;
     box-sizing: border-box;
     grid-gap: 10px;
     grid-template-columns: repeat(5, 1fr);
@@ -153,4 +188,9 @@ a {
 .material-icons {
     position: relative;
     top: 7px;
+}
+
+#upload-property {
+    vertical-align: top;
+    display: inline-block;
 }
