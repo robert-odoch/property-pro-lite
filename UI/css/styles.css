@@ -1,0 +1,95 @@
+/* Paddings */
+.pa-1 {
+    padding: 1em;
+}
+
+.pa-2 {
+    padding: 1.5em;
+}
+
+.pa-3 {
+    padding: 2em;
+}
+
+/* Colors */
+.bg-white {
+    background: #ffffff;
+}
+
+.bg-amber {
+    background-color: #ff8f00;
+    border: 1px solid #ff6f00;
+    color: #000000;
+}
+
+/* Forms */
+form {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #388e3c;
+    margin-bottom: .2em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: 1px solid #c5bfbf;
+    box-sizing: border-box;
+    padding: .5em .25em;
+    width: 100%;
+}
+
+/* Buttons */
+.btn {
+    padding: .5em 1em;
+    text-decoration: none;
+    border-radius: 2px;
+}
+.btn:hover {
+    cursor: pointer;
+}
+
+/* Core styles */
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(floor-tile.png);
+}
+
+header {
+    display: flex;
+    padding: 0 .5em;
+    background-color: #1b5e20;
+    color: #ff8f00;
+    margin-bottom: 1em;
+}
+
+header h1 {
+    margin: 0;
+    padding: .2em 0;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+#main-navigation {
+    margin-left: auto;
+    display: flex;
+    list-style-type: none;
+}
+
+#main-navigation li {
+    margin-left: .5em;
+}
