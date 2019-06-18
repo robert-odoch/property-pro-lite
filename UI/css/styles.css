@@ -70,6 +70,7 @@ form h3 {
     font-variant: small-caps;
     background-color: #59b45d;
     color: #ffffff;
+    border: 1px solid #5aa35f;
 }
 
 .form-group {
