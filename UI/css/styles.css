@@ -106,7 +106,7 @@ input[type="password"] {
 /* Core styles */
 :root {
     box-sizing: border-box;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 *,
