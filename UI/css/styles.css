@@ -92,6 +92,7 @@ label {
 
 input[type="text"],
 input[type="email"],
+input[type="number"],
 input[type="password"] {
     border: 1px solid #c5bfbf;
     box-sizing: border-box;
