@@ -62,6 +62,16 @@ form {
     margin: 0 auto;
 }
 
+form h3 {
+    margin: 0;
+    margin-bottom: .5em;
+    padding: .25em;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    background-color: #59b45d;
+    color: #ffffff;
+}
+
 .form-group {
     margin-bottom: 1em;
 }
