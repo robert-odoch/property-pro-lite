@@ -16,6 +16,10 @@
     margin-bottom: 1em;
 }
 
+.mr-1 {
+    margin-right: 1em;
+}
+
 /* Text */
 .text-green {
     color: #1b5e20;
@@ -60,6 +64,10 @@
     color: #000000;
 }
 
+.bg-grey {
+    background-color: #bdbbbb;
+}
+
 /* Display */
 .d-none {
     display: none;
@@ -72,8 +80,6 @@ form {
 }
 
 form h3 {
-    margin: 0;
-    margin-bottom: .5em;
     padding: .25em;
     text-transform: capitalize;
     font-variant: small-caps;
@@ -145,6 +151,11 @@ body {
     margin: 0;
     padding: 0;
     background-image: url(floor-tile.png);
+}
+
+h3 {
+    margin: 0;
+    margin-bottom: .5em;
 }
 
 header {
@@ -237,4 +248,17 @@ a {
 #upload-property {
     vertical-align: top;
     display: inline-block;
+}
+
+.property-lg {
+    width: 60%;
+    margin: auto;
+    display: flex;
+}
+
+.property-flag {
+    border: 1px dotted grey;
+    border-radius: 3px;
+    padding: .5em .25em;
+    margin-bottom: .25em;
 }
