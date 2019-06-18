@@ -90,10 +90,7 @@ label {
     margin-bottom: .2em;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="password"] {
+input {
     border: 1px solid #c5bfbf;
     box-sizing: border-box;
     padding: .5em .25em;
