@@ -25,6 +25,10 @@
     color: #ff8f00;
 }
 
+.text-red {
+    color: #d50000;
+}
+
 .text-grey {
     color: #9e9e9e;
 }
@@ -54,6 +58,11 @@
     background-color: #ff8f00;
     border: 1px solid #ff6f00;
     color: #000000;
+}
+
+/* Display */
+.d-none {
+    display: none;
 }
 
 /* Forms */
@@ -199,13 +208,25 @@ a {
     height: 150px;
 }
 
+.flag-property,
 .status-indicator {
     position: absolute;
-    top: .5em;
+    top: .25em;
     right: 1em;
 }
-.status-indicator > span {
-    display: none;
+
+.flag-property .material-icons,
+.status-indicator .material-icons {
+    border-radius: 50%;
+    padding: 3px;
+    color: #ffffff;
+}
+
+.flag-property .material-icons {
+    background-color: #ff0000;
+}
+.status-indicator .material-icons {
+    background-color: #1b5e20;
 }
 
 .material-icons {
