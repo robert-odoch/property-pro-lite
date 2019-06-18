@@ -105,7 +105,8 @@ label {
     margin-bottom: .2em;
 }
 
-input {
+input,
+select {
     border: 1px solid #c5bfbf;
     box-sizing: border-box;
     padding: .5em .25em;
@@ -116,10 +117,6 @@ input {
     display: inline-block;
     width: auto;
     margin: 0;
-}
-
-.form-inline label {
-    display: inline-block;
 }
 
 /* Buttons */
