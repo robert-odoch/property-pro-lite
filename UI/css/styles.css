@@ -119,6 +119,10 @@ select {
     margin: 0;
 }
 
+.form-inline label {
+    display: inline-block;
+}
+
 /* Buttons */
 .btn {
     padding: .5em 1em;
