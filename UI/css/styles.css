@@ -68,6 +68,11 @@
     background-color: #bdbbbb;
 }
 
+.bg-red {
+    color: #ffffff;
+    background-color: #d50000;
+}
+
 /* Display */
 .d-none {
     display: none;
