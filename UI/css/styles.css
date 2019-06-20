@@ -160,7 +160,6 @@ h3 {
 }
 
 header {
-    display: flex;
     padding: 0 .5em;
     background-color: #1b5e20;
     color: #ff8f00;
@@ -175,17 +174,29 @@ header h1 {
 }
 
 header h1 > a {
+    font-size: .7em;
     color: #ff8f00;
 }
 
 #main-navigation {
-    margin-left: auto;
     display: flex;
-    list-style-type: none;
+    margin-left: 0;
+    padding: .25em;
+    background-color: #000000;
 }
 
-#main-navigation li {
-    margin-left: .5em;
+#main-navigation > a {
+    display: inline-block;
+    color: #ff6f00;
+    padding: .25em .5em;
+    border-right: 1px solid #ff6f00;
+}
+
+#upload-property {
+    margin-left: auto;
+    border: 1px solid #ff6f00;
+    background-color: #ff8f00;
+    color: #000000 !important;
 }
 
 p {
@@ -246,11 +257,6 @@ a {
     top: 7px;
 }
 
-#upload-property {
-    vertical-align: top;
-    display: inline-block;
-}
-
 .property-lg {
     width: 60%;
     margin: auto;
@@ -262,4 +268,41 @@ a {
     border-radius: 3px;
     padding: .5em .25em;
     margin-bottom: .25em;
+}
+
+/* Media queries */
+@media only screen and (max-width: 480px) {
+    form {
+        width: 100%;
+        margin: 0;
+    }
+
+    .property-actions {
+        text-align: left;
+    }
+
+    .properties {
+        grid-template-columns: 1fr;
+    }
+
+    .property-lg {
+        width: 100%;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    .property-summary {
+        margin-right: 0;
+        margin-bottom: 1em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .properties {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .property-lg {
+        width: 100%;
+    }
 }
