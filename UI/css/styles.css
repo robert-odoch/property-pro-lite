@@ -111,7 +111,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
     border: 1px solid #c5bfbf;
     box-sizing: border-box;
     padding: .5em .25em;
