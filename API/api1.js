@@ -164,4 +164,84 @@ api.get('/property', (req, res) => {
     });
 });
 
+api.patch('/property/:id', (req, res) => {
+    const property = properties.find(p => p.id === req.params.id);
+    if (!property) {
+        res.status(404).json({
+            'status': 'error',
+            'error': 'Could not find the property you are looking for'
+        });
+
+        return;
+    }
+
+    // Get the user updating the advert
+    const token = req.headers['x-access-token'];
+    const username = getTokenUsername(token);
+    if (!username) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong'
+        });
+
+        return;
+    }
+
+    const user = users.find((u) => {
+        return u.username === username;
+    });
+    if (!user) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong!'
+        });
+
+        return;
+    }
+
+    // Ensure user updating advert is property owner
+    if (user.id !== property.owner) {
+        res.status(403).json({
+            'status': 'error',
+            'error': 'You do not have the proper permissions to update this property'
+        });
+
+        return;
+    }
+
+    const updates = req.body;
+    if (updates.type) {
+        property.type = updates.type;
+    }
+    if (updates.price) {
+        property.price = updates.price;
+    }
+    if (updates.state) {
+        property.state = updates.state;
+    }
+    if (updates.city) {
+        property.city = updates.city;
+    }
+    if (updates.address) {
+        property.address = updates.address
+    }
+
+    properties.forEach(p => {
+        if (p.id !== property.id) {
+            return;
+        }
+
+        p.type = property.type;
+        p.price = property.price;
+        p.state = property.state;
+        p.city = property.city;
+        p.address = property.address;
+    });
+
+    res.status(200).json({
+        'status': 'success',
+        'data': property
+    });
+});
+
 module.exports = api;
