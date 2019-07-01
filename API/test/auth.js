@@ -60,3 +60,29 @@ describe('API endpoint /auth/signup', () => {
         });
     });
 });
+
+describe('API endpoint /auth/signin', () => {
+    let request;
+
+    beforeEach(() => {
+        request = chai.request(server).post('/v1/auth/signin');
+    });
+
+    it('signs in a user', (done) => {
+        request.send({username, password})
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
+
+    it('rejects invalid sign in details', (done) => {
+        request.send({username, password: '12345'})
+        .end((err, res) => {
+            res.should.have.status(400);
+
+            done();
+        });
+    });
+});

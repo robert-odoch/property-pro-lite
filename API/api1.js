@@ -3,19 +3,9 @@ const uuidv4 = require('uuid/v4');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const { getUserJson } = require('./methods');
+
 let users = [];
-const getUserJson = (user) => {
-    return {
-        "token": user.token,
-        "id": user.id,
-        "first_name": user.firstName,
-        "last_name": user.lastName,
-        "address": user.address,
-        "email": user.email,
-        "phoneNumber": user.phoneNumber,
-        "is_admin": false
-    }
-};
 
 const api = express.Router();
 
@@ -71,6 +61,29 @@ api.post('/auth/signup', (req, res) => {
         "status": "success",
         "data": getUserJson(newUser)
     });
+});
+
+api.post('/auth/signin', (req, res) => {
+    const data = req.body;
+    const user = users.find((u) => {
+        return bcrypt.compareSync(data.password, u.password);
+    });
+
+    if (!user) {
+        res.status(400).json({
+            'status': 'error',
+            'error': 'Invalid loggin details!'
+        });
+
+        return;
+    }
+
+    res.status(200).json({
+        'status': 'success',
+        'data': getUserJson(user)
+    });
+
+    return;
 });
 
 module.exports = api;
