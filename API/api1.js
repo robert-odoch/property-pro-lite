@@ -164,6 +164,23 @@ api.get('/property', (req, res) => {
     });
 });
 
+api.get('/property/:id', (req, res) => {
+    const property = properties.find(p => p.id === req.params.id);
+    if (property) {
+        res.status(200).json({
+            'status': 'success',
+            'data': property
+        });
+
+        return;
+    }
+
+    res.status(404).json({
+        'status': 'error',
+        'error': 'Could not find the property you are looking for'
+    });
+});
+
 api.patch('/property/:id', (req, res) => {
     const property = properties.find(p => p.id === req.params.id);
     if (!property) {

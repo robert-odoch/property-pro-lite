@@ -37,6 +37,16 @@ describe('API endpoint /property/<:property-id>', () => {
         request = chai.request(server);
     });
 
+    it('retrieves the property with the given ID', (done) => {
+        request.get(`/v1/property/${properties[0].id}`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
+
     it('updates a property with the given ID', (done) => {
         request.patch(`/v1/property/${properties[0].id}`)
         .set('x-access-token', token)
