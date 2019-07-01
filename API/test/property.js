@@ -63,4 +63,20 @@ describe('API endpoint /property/<:property-id>', () => {
             done();
         });
     });
+
+    it('deletes a property with the given ID', (done) => {
+        request.delete(`/v1/property/${properties[0].id}`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
+
+    it('ensures only property owner can delete property', (done) => {
+        // TODO: provide better implementation.
+
+        done();
+    });
 });

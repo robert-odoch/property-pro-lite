@@ -305,4 +305,59 @@ api.patch('/property/:id/sold', (req, res) => {
     });
 });
 
+api.delete('/property/:id', (req, res) => {
+    const property = properties.find(p => p.id === req.params.id);
+    if (!property) {
+        res.status(404).json({
+            'status': 'error',
+            'error': 'Could not find the property you are looking for'
+        });
+
+        return;
+    }
+
+    // Get the user deleting the advert
+    const token = req.headers['x-access-token'];
+    const username = getTokenUsername(token);
+    if (!username) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong'
+        });
+
+        return;
+    }
+
+    const user = users.find((u) => {
+        return u.username === username;
+    });
+    if (!user) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong!'
+        });
+
+        return;
+    }
+
+    // Ensure user updating advert is property owner
+    if (user.id !== property.owner) {
+        res.status(403).json({
+            'status': 'error',
+            'error': 'You do not have the proper permissions to delete this property'
+        });
+
+        return;
+    }
+
+    // Delete the property.
+    properties = properties.filter(p => p.id !== property.id);
+    res.status(200).json({
+        'status': 'success',
+        'data': {
+            'message': 'Property successfully deleted'
+        }
+    });
+});
+
 module.exports = api;
