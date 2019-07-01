@@ -244,4 +244,65 @@ api.patch('/property/:id', (req, res) => {
     });
 });
 
+api.patch('/property/:id/sold', (req, res) => {
+    const property = properties.find(p => p.id === req.params.id);
+    if (!property) {
+        res.status(404).json({
+            'status': 'error',
+            'error': 'Could not find the property you are looking for'
+        });
+
+        return;
+    }
+
+    // Get the user updating the advert
+    const token = req.headers['x-access-token'];
+    const username = getTokenUsername(token);
+    if (!username) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong'
+        });
+
+        return;
+    }
+
+    const user = users.find((u) => {
+        return u.username === username;
+    });
+    if (!user) {
+        res.status(500).json({
+            'status': 'error',
+            'error': 'Something went wrong!'
+        });
+
+        return;
+    }
+
+    // Ensure user updating advert is property owner
+    if (user.id !== property.owner) {
+        res.status(403).json({
+            'status': 'error',
+            'error': 'You do not have the proper permissions to update this property'
+        });
+
+        return;
+    }
+
+    // Update property status
+    property.status = 'Sold';
+    properties.forEach(p => {
+        if (p.id !== property.id) {
+            return;
+        }
+
+        p.status = property.status;
+    });
+
+    res.status(200).json({
+        'status': 'success',
+        'data': property
+    });
+});
+
 module.exports = api;

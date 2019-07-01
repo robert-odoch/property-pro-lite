@@ -53,4 +53,14 @@ describe('API endpoint /property/<:property-id>', () => {
 
         done();
     });
+
+    it('marks a property as sold', (done) => {
+        request.patch(`/v1/property/${properties[0].id}/sold`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
 });
