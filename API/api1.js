@@ -150,4 +150,18 @@ api.post('/property', (req, res) => {
     });
 });
 
+api.get('/property', (req, res) => {
+    let results = properties;
+
+    const type = req.query.type;
+    if (type) {
+        results = properties.filter((p) => p.type === type);
+    }
+
+    res.status(200).json({
+        'status': 'success',
+        'data': results
+    });
+});
+
 module.exports = api;

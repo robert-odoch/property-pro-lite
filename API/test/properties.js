@@ -59,4 +59,24 @@ describe('API endpoint /property', () => {
             done();
         });
     });
+
+    it('gets all properties', (done) => {
+        request.get('/v1/property')
+        .set('x-access-token', token)
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
+
+    it('gets all properties of a specific type', (done) => {
+        request.get(`/v1/property?type=propertyType`)
+        .set('x-access-token', token)
+        .end((err, res) => {
+            res.should.have.status(200);
+
+            done();
+        });
+    });
 });
