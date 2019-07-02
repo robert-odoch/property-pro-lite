@@ -12,9 +12,9 @@ const api = express.Router();
 
 api.post('/auth/signup', (req, res) => {
     const user = req.body;
-    if (user.firstName === '' || user.lastName === '' || user.email === '' ||
-            user.phoneNumber === '' || user.address === '' || user.username === '' ||
-            user.password === '' || user.passwordConfirmation === '') {
+    if (!user.firstName || !user.lastName || !user.email ||
+            !user.phoneNumber || !user.address || user.username ||
+            !user.password || !user.passwordConfirmation) {
         res.status(400).json({
             "status": "error",
             "error": "Some details are missing"
