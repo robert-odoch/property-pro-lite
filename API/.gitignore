@@ -1,4 +1,8 @@
 node_modules
+.coveralls
+.nyc_output
+coverage
+mochawesome-report
 
 # Log files
 npm-debug.log*
@@ -13,3 +17,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+
+# Important files
+.coveralls.yml
