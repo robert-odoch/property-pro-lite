@@ -1,6 +1,12 @@
 language: node_js
 node_js:
-  - "stable"
-cache:
-  directories:
-- "node_modules"
+  - "10.7.0"
+
+before_script:
+  -
+
+script:
+  - npm test
+
+after_success:
+  - npm run coveralls
