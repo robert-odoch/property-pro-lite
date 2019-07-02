@@ -98,7 +98,7 @@ api.post('/property', (req, res) => {
 
         res.status(400).json({
             'status': 'error',
-            'message': 'Incomplete details submitted!'
+            'error': 'Incomplete details submitted!'
         });
 
         return;

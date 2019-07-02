@@ -1,14 +1,17 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
-const expect = chai.expect;
-const should = chai.should();
-chai.use(chaiHttp);
-
 const server = require('../app.js');
+const {
+    validateErrorResult,
+    validateSuccessResult,
+    validatePropertyJson,
+    validatePropertiesJson } = require('./methods');
 
 const username = 'rodoch';
 const password = 'r0Doch95';
+
+chai.use(chaiHttp);
+const expect = chai.expect;
 
 describe('API endpoint /property', () => {
     const data = {
@@ -28,7 +31,12 @@ describe('API endpoint /property', () => {
         chai.request(server).post('/v1/auth/signin').send({username, password})
         .end((err, res) => {
             res.should.have.status(200);
-            token = res.body.data.token;
+
+            const result = res.body;
+            validateSuccessResult(result);
+
+            expect(result.data).to.haveOwnProperty('token');
+            token = result.data.token;
 
             done();
         });
@@ -45,6 +53,12 @@ describe('API endpoint /property', () => {
         .end((err, res) => {
             res.should.have.status(201);
 
+            const result = res.body;
+            validateSuccessResult(result);
+
+            const property = result.data;
+            validatePropertyJson(property);
+
             done();
         });
     });
@@ -56,6 +70,9 @@ describe('API endpoint /property', () => {
         .end((err, res) => {
             res.should.have.status(400);
 
+            const result = res.body;
+            validateErrorResult(result);
+
             done();
         });
     });
@@ -66,6 +83,12 @@ describe('API endpoint /property', () => {
         .end((err, res) => {
             res.should.have.status(200);
 
+            const result = res.body;
+            validateSuccessResult(result);
+
+            const properties = result.data;
+            validatePropertiesJson(properties);
+
             done();
         });
     });
@@ -75,6 +98,12 @@ describe('API endpoint /property', () => {
         .set('x-access-token', token)
         .end((err, res) => {
             res.should.have.status(200);
+
+            const result = res.body;
+            validateSuccessResult(result);
+
+            const properties = result.data;
+            validatePropertiesJson(properties);
 
             done();
         });
