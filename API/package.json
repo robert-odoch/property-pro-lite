@@ -4,7 +4,7 @@
   "description": "API endpoints for property-pro-lite",
   "main": "app.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=html --reporter=text mocha ./test/*.js --reporter mochawesome --timeout 10000 --exit",
+    "test": "mocha",
     "start": "nodemon app.js",
     "coveralls": "npm test && nyc report --reporter=text-lcov | coveralls"
   },
