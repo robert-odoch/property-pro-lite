@@ -111,7 +111,9 @@ describe('API endpoint /property/<:property-id>', () => {
     });
 
     it('marks a property as sold', (done) => {
-        request.patch(`/v1/property/${properties[0].id}/sold`)
+        const propertyToMark = properties[0].id;
+
+        request.patch(`/v1/property/${propertyToMark}/sold`)
         .set('x-access-token', token)
         .end((err, res) => {
             res.should.have.status(200);
@@ -121,6 +123,20 @@ describe('API endpoint /property/<:property-id>', () => {
 
             const property = result.data;
             validatePropertyJson(property);
+
+            // Ensure that the property is really marked as sold.
+            chai.request(server)
+            .get(`/v1/property/${propertyToMark}`)
+            .set('x-access-token', token)
+            .end((err, res) => {
+                res.should.have.status(200);
+
+                const result = res.body;
+                validateSuccessResult(result);
+
+                const property = result.data;
+                expect(property).to.have.own.property('status', 'Sold');
+            });
 
             done();
         });
