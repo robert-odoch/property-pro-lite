@@ -1,14 +1,16 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
-const expect = chai.expect;
-const should = chai.should();
-chai.use(chaiHttp);
-
 const server = require('../app.js');
+const {
+    validateErrorResult,
+    validateSuccessResult,
+    validateUserJson } = require('./methods');
 
 const username = 'rodoch';
 const password = 'r0Doch95';
+
+chai.use(chaiHttp);
+const should = chai.should();
 
 describe('API endpoint /auth/signup', () => {
     const data = {
@@ -31,6 +33,12 @@ describe('API endpoint /auth/signup', () => {
         request.send(data).end((err, res) => {
             res.should.have.status(201);
 
+            const result = res.body;
+            validateSuccessResult(result);
+
+            const user = result.data;
+            validateUserJson(user);
+
             done();
         });
     });
@@ -38,6 +46,9 @@ describe('API endpoint /auth/signup', () => {
     it('rejects incomplete registration details', (done) => {
         request.send({...data, firstName: '', username: ''}).end((err, res) => {
             res.should.have.status(400);
+
+            const result = res.body;
+            validateErrorResult(result);
 
             done();
         });
@@ -47,6 +58,9 @@ describe('API endpoint /auth/signup', () => {
         request.send(data).end((err, res) => {
             res.should.have.status(400);
 
+            const result = res.body;
+            validateErrorResult(result);
+
             done();
         });
     })
@@ -55,6 +69,9 @@ describe('API endpoint /auth/signup', () => {
         request.send({...data, password: '123', passwordConfirmation: '456'})
         .end((err, res) => {
             res.should.have.status(400);
+
+            const result = res.body;
+            validateErrorResult(result);
 
             done();
         });
@@ -73,6 +90,12 @@ describe('API endpoint /auth/signin', () => {
         .end((err, res) => {
             res.should.have.status(200);
 
+            const result = res.body;
+            validateSuccessResult(result);
+
+            const user = result.data;
+            validateUserJson(user);
+
             done();
         });
     });
@@ -81,6 +104,9 @@ describe('API endpoint /auth/signin', () => {
         request.send({username, password: '12345'})
         .end((err, res) => {
             res.should.have.status(400);
+
+            const result = res.body;
+            validateErrorResult(result);
 
             done();
         });

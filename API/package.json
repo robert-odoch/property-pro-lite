@@ -4,7 +4,7 @@
   "description": "API endpoints for property-pro-lite",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "nodemon app.js",
     "coveralls": "npm test && nyc report --reporter=text-lcov | coveralls"
   },
