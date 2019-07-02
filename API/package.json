@@ -4,7 +4,9 @@
   "description": "API endpoints for property-pro-lite",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "nyc --reporter=lcov --reporter=html --reporter=text mocha ./test/*.js --reporter mochawesome --timeout 10000 --exit",
+    "start": "nodemon app.js",
+    "coveralls": "npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Robert Odoch",
   "license": "ISC",
@@ -19,8 +21,11 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "coveralls": "^3.0.4",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mochawesome": "^4.0.1",
+    "nyc": "^14.1.1",
     "uuid": "^3.3.2"
   }
 }
