@@ -1,12 +1,13 @@
 language: node_js
 node_js:
-  - "10.7.0"
+  - "stable"
 
-before_script:
-  -
+script: build.sh
 
-script:
-  - npm test
+branches:
+  only:
+    - master
+    - develop
 
 after_success:
   - npm run coveralls
