@@ -5,7 +5,8 @@ node_js:
 before_script:
   -
 
-script: build.sh
+script:
+  - npm test
 
 after_success:
   - npm run coveralls
