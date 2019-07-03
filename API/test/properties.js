@@ -49,7 +49,8 @@ describe('API endpoint /property', () => {
     it('creates a new property', (done) => {
         request.post('/v1/property')
         .set('x-access-token', token)
-        .send(data)
+        .field(data)
+        .attach('image', './test/property.jpg')
         .end((err, res) => {
             res.should.have.status(201);
 
@@ -61,7 +62,7 @@ describe('API endpoint /property', () => {
 
             done();
         });
-    });
+    }).timeout(10000);
 
     it('rejects incomplete property details', (done) => {
         request.post('/v1/property')

@@ -2,6 +2,8 @@ const express = require('express');
 const uuidv4 = require('uuid/v4');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { uploader } = require('./config/cloudinary');
+const { multerUploads, dataUri } = require('./middleware/multer');
 
 const { ensureToken, getTokenUsername, getUserJson } = require('./methods');
 
@@ -90,9 +92,9 @@ api.post('/auth/signin', (req, res) => {
 // All routes after this point requires user to be logged in.
 api.use(ensureToken);
 
-api.post('/property', (req, res) => {
+api.post('/property', multerUploads, (req, res) => {
     const property = req.body;
-    if (!property.name || !property.type || !property.picture ||
+    if (!property.name || !property.type || !req.file ||
             !property.price || !property.status || !property.state ||
             !property.city || !property.address) {
 
@@ -110,7 +112,7 @@ api.post('/property', (req, res) => {
     if (!username) {
         res.status(500).json({
             'status': 'error',
-            'error': 'Something went wrong'
+            'error': 'Invalid token being used'
         });
 
         return;
@@ -122,32 +124,53 @@ api.post('/property', (req, res) => {
     if (!user) {
         res.status(500).json({
             'status': 'error',
-            'error': 'Something went wrong!'
+            'error': 'Invalid token being used'
         });
 
         return;
     }
 
-    // Store the new property.
-    const newProperty = {
-        'id': uuidv4(),
-        'owner': user.id,
-        'name': property.name,
-        'status': property.status,
-        'type': property.type,
-        'state': property.state,
-        'city': property.city,
-        'address': property.address,
-        'price': property.price,
-        'created_on': new Date(),
-        'image_url': 'http://www.example.com'
-    };
-    properties.push(newProperty);
+    // Upload property image to cloudinary.
+    if (req.file) {
+        const file = dataUri(req).content;
 
-    res.status(201).json({
-        'status': 'success',
-        'data': newProperty
-    });
+        uploader.upload(file).then(result => {
+            // Store the new property.
+            const newProperty = {
+                'id': uuidv4(),
+                'owner': user.id,
+                'name': property.name,
+                'status': property.status,
+                'type': property.type,
+                'state': property.state,
+                'city': property.city,
+                'address': property.address,
+                'price': property.price,
+                'created_on': new Date(),
+                'image_url': result.url
+            };
+            properties.push(newProperty);
+
+            res.status(201).json({
+                'status': 'success',
+                'data': newProperty
+            });
+
+            return;
+        })
+        .catch(error => {
+            res.status(400).json({
+                'status': 'error',
+                'error': 'Could not upload image to cloudinary'
+            });
+        });
+    }
+    else {
+        res.status(400).json({
+            'status': 'error',
+            'error': 'No image provided'
+        });
+    }
 });
 
 api.get('/property', (req, res) => {

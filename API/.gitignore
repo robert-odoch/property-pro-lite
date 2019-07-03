@@ -18,5 +18,6 @@ yarn-error.log*
 *.sln
 *.sw*
 
-# Important files
+# Files containing sensitive information
+.env
 .coveralls.yml
